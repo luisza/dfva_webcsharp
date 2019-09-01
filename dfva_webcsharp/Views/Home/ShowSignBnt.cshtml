@@ -1,0 +1,28 @@
+﻿@model dfva_webcsharp.Models.DocumentModel
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+              
+            <br><br><br>
+            <h1 class="text-heading"> Documento a firmar:</h1>
+            <pre>
+            @ViewData["document_resumen"].
+            </pre>
+            
+            <button  class="btn btn-success"  id="BotonDeFirmar"
+                      data-fva="true" data-url="/sign/@ViewData["document_hash"]"
+                      data-urlconsultafirma="/check_sign/@ViewData["document_hash"]"
+                      data-dominio="@(string.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/"
+                      data-successurl="/download/@ViewData["document_hash"]"
+                      data-parautenticarse="al Sitio de Verificaci&oacute;n"
+                      data-mensajedeerror="No se pudo realizar la firma en el sitio de verificaci&oacute;n."
+                      > Firmar aceptación de documento </button>         
+    </div>
+</div>
+
+
+<script src="@Href("~/Scripts/js/jquery-1.9.1.min.js")"></script>
+<script src="@Href("~/Scripts/js/Bccr.Fva.ClienteInterno.Firmador-1.0.3.js")" type="text/javascript"></script>
+<script src="@Href("~/Scripts/js/firma-verificacion-1.0.3.js")"></script>
+    
+ 
