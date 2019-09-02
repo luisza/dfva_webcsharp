@@ -6,7 +6,35 @@ Este proyecto fue desarrollado con asp.net 4.6 framework mvc y csharp usando mon
 
 # Instalación
 
-    pronto
+Instale mono en la máquina, para esto usamos centos 7 
+
+    rpmkeys --import "http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x3fa7e0328081bff6a14da29aa6a19b38d3d831ef"
+    curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo
+
+    yum install mono-complete
+    yum install xsp.x86_64
+    yum instal supervisor 
+
+# Configurar un servidor de desarrollo con supervisor
+
+Debe crear el siguiente archivo `/etc/supervisord.d/dfvawebcsharp.ini` 
+
+    [program:dfvawebcsharp]
+    command=xsp4 --port 9000  --nonstop --logfile=/home/user/dfva_csharp.log -v
+    #command=/home/user/dfva_webcsharp/dfva_webcsharp/run.sh
+    directory=/home/user/dfva_webcsharp/dfva_webcsharp
+    user=user
+    group=user
+    autostart=true
+    autorestart=true
+    stderr_logfile=/var/log/dfva_webcsharp.err.log
+    stdout_logfile=/var/log/dfva_webcsharp.out.log
+    environment=PATH="/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/user/.local/bin:/home/user/bin";HOME=/home/user
+
+Por último ejecute 
+
+    supervisorctl reread
+    supervisorctl update
 
 # Archivos de interés 
 
